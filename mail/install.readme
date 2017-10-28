@@ -1,0 +1,28 @@
+apt-get install mailutils
+
+vi /etc/postfix/main.cf
+
+
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 172.0.0.0/8
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = all
+myhostname = patrickalin
+myorigin = scarlet.be
+mydestination = alin.be, morpheus.alin.be, localhost.localdomain, localhost, $myorigin
+relayhost = [smtp.scarlet.be] 
+
+
+
+vi /etc/mailname
+morpheus@alin.be
+
+
+vi /etc/hosts
+127.0.1.1	morpheus.alin.be morpheus
+
+service postfix restart 
